@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,13 +20,16 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Create Android project
+        run: |
+          flutter create --platforms=android /tmp/aribz_template
+          rm -rf android
+          cp -r /tmp/aribz_template/android .
+
       - name: Flutter pub get
         run: flutter pub get
 
       - name: Build APK
-      flutter create --platforms=android .
-      flutter create --platforms=android /tmp/aribz_template
-      cp -r /tmp/aribz_template/android .
         run: flutter build apk --release
 
       - name: Upload APK
