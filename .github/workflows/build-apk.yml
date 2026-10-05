@@ -23,6 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
+      flutter create --platforms=android .
         run: flutter build apk --release
 
       - name: Upload APK
